@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Header(props) {
   return (
@@ -10,17 +10,25 @@ function Header(props) {
 }
 
 function Action() {
+  function handlePick() {
+    alert('clicked');
+  }
   return (
     <div>
-      <button>What should I do?</button>
+      <button onClick={handlePick}> What should I do?</button>
     </div>
   );
 }
 
 function Options(props) {
+  function handleRemoveAll() {
+    alert('Removed All');
+  }
+
   return (
     <div>
       <p>Options listed here</p>
+      <button onClick={handleRemoveAll}>Remove all options</button>
       <ul>
         {props.options.map((option) => (
           <Option key={option} optionText={option} />
@@ -39,7 +47,24 @@ function Option(props) {
 }
 
 function AddOption() {
-  return <div>Adding options here</div>;
+  const [option, setOption] = useState('');
+
+  function handleAddOption(event) {
+    event.preventDefault();
+    alert(`The option you entered was ${option.trim()}`);
+  }
+
+  return (
+    <form onSubmit={handleAddOption}>
+      <input
+        type="text"
+        value={option}
+        onChange={(e) => setOption(e.target.value)}
+      />
+      <br />
+      <button type="submit">Add option</button>
+    </form>
+  );
 }
 
 function App() {
