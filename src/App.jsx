@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Header() {
+function Header(props) {
   return (
     <div>
-      <h1>Big Wave Web</h1>
-      <h2>Design, Hosting, and DNS registration</h2>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
     </div>
   );
 }
@@ -17,32 +17,45 @@ function Action() {
   );
 }
 
-function Option() {
+function Options(props) {
   return (
     <div>
       <p>Options listed here</p>
       <ul>
-        <li>Option 1</li>
-        <li>Option 2</li>
+        {props.options.map((option) => (
+          <Option key={option} optionText={option} />
+        ))}
       </ul>
     </div>
   );
 }
 
-function AddOption() {
+function Option(props) {
   return (
     <div>
-      <p>Adding options here</p>
+      <li>{props.optionText}</li>
     </div>
   );
 }
 
+function AddOption() {
+  return <div>Adding options here</div>;
+}
+
 function App() {
+  const title = 'Big Wave Web';
+  const subtitle = 'Catch the next Wave for your Website!';
+  const options = [
+    'Brillant Web Design',
+    'Hosted pages on the cloud',
+    'Includes Domain Name Registration',
+  ];
+
   return (
     <div>
-      <Header />
+      <Header title={title} subtitle={subtitle} />
       <Action />
-      <Option />
+      <Options options={options} />
       <AddOption />
     </div>
   );
