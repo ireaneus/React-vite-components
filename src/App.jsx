@@ -1,89 +1,112 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function Header(props) {
-  return (
-    <div>
-      <h1>{props.title}</h1>
-      <h2>{props.subtitle}</h2>
-    </div>
-  );
+class IndecisionApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+    this.state = {
+      options: ['Thing one', 'Thing two', 'Thing three'],
+    };
+  }
+  handleDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: [],
+      };
+    });
+  }
+  handlePick() {
+    const randomNum = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[randomNum];
+    alert(option);
+  }
+  render() {
+    const title = 'Indecision';
+    const subtitle = 'Put your life in the hands of a computer';
+
+    return (
+      <div>
+        <Header title={title} subtitle={subtitle} />
+        <Action
+          hasOptions={this.state.options.length > 0}
+          handlePick={this.handlePick}
+        />
+        <Options
+          options={this.state.options}
+          handleDeleteOptions={this.handleDeleteOptions}
+        />
+        <AddOption />
+      </div>
+    );
+  }
 }
 
-function Action() {
-  function handlePick() {
-    alert('clicked');
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
+      </div>
+    );
   }
-  return (
-    <div>
-      <button onClick={handlePick}> What should I do?</button>
-    </div>
-  );
 }
 
-function Options(props) {
-  function handleRemoveAll() {
-    alert('Removed All');
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button
+          onClick={this.props.handlePick}
+          disabled={!this.props.hasOptions}
+        >
+          What should I do?
+        </button>
+      </div>
+    );
   }
+}
 
-  return (
-    <div>
-      <p>Options listed here</p>
-      <button onClick={handleRemoveAll}>Remove all options</button>
-      <ul>
-        {props.options.map((option) => (
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
+        {this.props.options.map((option) => (
           <Option key={option} optionText={option} />
         ))}
-      </ul>
-    </div>
-  );
-}
-
-function Option(props) {
-  return (
-    <div>
-      <li>{props.optionText}</li>
-    </div>
-  );
-}
-
-function AddOption() {
-  const [option, setOption] = useState('');
-
-  function handleAddOption(event) {
-    event.preventDefault();
-    alert(`The option you entered was ${option.trim()}`);
+      </div>
+    );
   }
-
-  return (
-    <form onSubmit={handleAddOption}>
-      <input
-        type="text"
-        value={option}
-        onChange={(e) => setOption(e.target.value)}
-      />
-      <br />
-      <button type="submit">Add option</button>
-    </form>
-  );
 }
 
-function App() {
-  const title = 'Big Wave Web';
-  const subtitle = 'Catch the next Wave for your Website!';
-  const options = [
-    'Brillant Web Design',
-    'Hosted pages on the cloud',
-    'Includes Domain Name Registration',
-  ];
-
-  return (
-    <div>
-      <Header title={title} subtitle={subtitle} />
-      <Action />
-      <Options options={options} />
-      <AddOption />
-    </div>
-  );
+class Option extends React.Component {
+  render() {
+    return <div>{this.props.optionText}</div>;
+  }
 }
 
-export default App;
+class AddOption extends React.Component {
+  handleAddOption(e) {
+    e.preventDefault();
+
+    const option = e.target.elements.option.value.trim();
+
+    if (option) {
+      alert(option);
+    }
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleAddOption}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default IndecisionApp;
