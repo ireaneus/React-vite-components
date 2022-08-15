@@ -9,7 +9,7 @@ class IndecisionApp extends React.Component {
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
     this.state = {
-      options: props.options,
+      options: [],
     };
   }
   componentDidMount() {
@@ -77,9 +77,7 @@ class IndecisionApp extends React.Component {
     );
   }
 }
-IndecisionApp.defaultProps = {
-  options: [],
-};
+
 const Header = (props) => {
   return (
     <div>
@@ -169,7 +167,7 @@ class AddOption extends React.Component {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <IndecisionApp options={['The Rock Cries Out', 'Beyond Belief']} />
+    <IndecisionApp />
   </React.StrictMode>
 );
 export default IndecisionApp;
