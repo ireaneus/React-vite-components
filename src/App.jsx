@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 
 class IndecisionApp extends React.Component {
   constructor(props) {
@@ -165,9 +164,4 @@ class AddOption extends React.Component {
   }
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <IndecisionApp />
-  </React.StrictMode>
-);
 export default IndecisionApp;
