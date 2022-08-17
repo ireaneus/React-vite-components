@@ -3,14 +3,20 @@ import AddOption from './components/AddOption';
 import Header from './components/Header';
 import Action from './components/Action';
 import Options from './components/Options';
+import OptionModal from './components/OptionModal';
 
 export default class IndecisionApp extends React.Component {
   state = {
     options: [],
+    selectedOption: undefined,
   };
 
   handleDeleteOptions = () => {
     this.setState(() => ({ options: [] }));
+  };
+
+  handleCloseModal = () => {
+    this.setState(() => ({ selectedOption: undefined }));
   };
 
   handleDeleteOption = (optionToRemove) => {
@@ -22,7 +28,9 @@ export default class IndecisionApp extends React.Component {
   handlePick = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
-    alert(option);
+    this.setState(() => ({
+      selectedOption: option,
+    }));
   };
 
   handleAddOption = (option) => {
@@ -30,7 +38,7 @@ export default class IndecisionApp extends React.Component {
       return 'Enter valid entry';
     } else if (this.state.options.indexOf(option) > -1) {
       return 'this option is already taken';
-    };
+    }
 
     this.setState((prevState) => ({
       options: prevState.options.concat(option),
@@ -48,15 +56,15 @@ export default class IndecisionApp extends React.Component {
     } catch (e) {
       // do nothing
     }
-  }
+  };
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.options.length !== this.state.options.length) {
       const json = JSON.stringify(this.state.options);
       localStorage.setItem('options', json);
     }
-  }
-  
+  };
+
   render() {
     const subtitle = 'Put your life in the hands of a computer';
 
@@ -73,6 +81,10 @@ export default class IndecisionApp extends React.Component {
           handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption handleAddOption={this.handleAddOption} />
+        <OptionModal 
+          selectedOption={this.state.selectedOption} 
+          handleCloseModal={this.handleCloseModal}
+          />
       </div>
     );
   }
