@@ -1,0 +1,11 @@
+.option {
+  border-bottom: 1px solid lighten($mid-blue, 10%);
+  display: flex;
+  justify-content: space-between;
+  padding: $m-size $m-size;
+}
+
+.option__text {
+  color: seashell;
+  font-weight: 500;
+}

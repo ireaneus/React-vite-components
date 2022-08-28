@@ -1,0 +1,32 @@
+.big-button {
+  background: $light-green;
+  border: none;
+  border-bottom: 1px solid darken($light-green, 10%);
+  color: $off-white;
+  font-weight: bold;
+  font-size: $l-size;
+  margin-bottom: $xl-size;
+  padding: 2.4rem;
+  width: 100%;
+}
+
+.big-button:disabled {
+  opacity: 0.5;
+}
+
+.button {
+  background: $light-green;
+  border: none;
+  border-bottom: 0.2rem solid darken($light-green, 10%);
+  color: $off-white;
+  font-weight: 500;
+  padding: $s-size;
+}
+
+// BEM Modifier
+.button--link {
+  background: none;
+  border: none;
+  color: whitesmoke;
+  padding: 0;
+}
