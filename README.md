@@ -1,4 +1,6 @@
-# React-vite-components
+# React-vite-Song-Entry app 
+
+## using components, cards and list entries. Has the CSS features below for reference
 
 - npm install sass, normalize.css
 
